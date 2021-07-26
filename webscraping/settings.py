@@ -61,9 +61,9 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    'webscraping.pipelines.WebscrapingPipeline': 300,
-# }
+ITEM_PIPELINES = {
+    'webscraping.pipelines.nepse.NepsePipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -88,3 +88,10 @@ DOWNLOADER_MIDDLEWARES = {
 
 # FEED_FORMAT = "csv"
 # FEED_URI = ""
+
+DB_PARAMETER = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': 'root',
+    'db': 'nepse'
+}

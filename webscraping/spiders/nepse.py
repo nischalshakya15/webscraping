@@ -3,14 +3,14 @@ import scrapy
 
 class NepseSpider(scrapy.Spider):
     name = 'nepse'
-    allowed_domains = ['nepalstock.com.np']
+    allowed_domains = ['nepalstock.com']
 
     def __init__(self, nepse_data=None, **kwargs):
         super().__init__(name=None, **kwargs)
         self.nepse_data = nepse_data
 
     def start_requests(self):
-        yield scrapy.Request(f'http://www.nepalstock.com.np/{self.nepse_data}/')
+        yield scrapy.Request(f'http://www.nepalstock.com/{self.nepse_data}/')
 
     def parse(self, response, **kwargs):
         print('Processing URL : ' + response.url)
@@ -52,7 +52,7 @@ class NepseSpider(scrapy.Spider):
             print()
 
     def extract_todays_price_pagination_data(self, next_page):
-        next_url = f'http://www.nepalstock.com.np/main/todays_price/index/{next_page}/'
+        next_url = f'http://www.nepalstock.com/main/todays_price/index/{next_page}/'
         yield scrapy.Request(
             url=next_url,
             callback=self.parse
@@ -62,6 +62,7 @@ class NepseSpider(scrapy.Spider):
     def extract_todays_price(table_data):
         for td in table_data:
             row = td.xpath("td/text()").extract()
+            print(row)
 
             removed_new_line = list(map(lambda tr: tr.strip(), row))
             filtered_empty_data = list(filter(lambda tr: tr != '', removed_new_line))
@@ -102,7 +103,7 @@ class NepseSpider(scrapy.Spider):
                 }
 
     def extract_floor_sheet_pagination_data(self, next_page):
-        next_url = f'http://www.nepalstock.com.np/main/floorsheet/index/{next_page}/'
+        next_url = f'http://www.nepalstock.com/main/floorsheet/index/{next_page}/'
         yield scrapy.Request(
             url=next_url,
             callback=self.parse
@@ -146,7 +147,7 @@ class NepseSpider(scrapy.Spider):
                 }
 
     def extract_one_twenty_days_trading_average_price_pagination_data(self, next_page):
-        next_url = f'http://www.nepalstock.com.np/main/calculation/index/{next_page}/'
+        next_url = f'http://www.nepalstock.com/main/calculation/index/{next_page}/'
         yield scrapy.Request(
             url=next_url,
             callback=self.parse
@@ -173,7 +174,7 @@ class NepseSpider(scrapy.Spider):
                 }
 
     def extract_one_eighty_days_trading_average_price_pagination_data(self, next_page):
-        next_url = f'http://www.nepalstock.com.np/main/calculationoneeighty/index/{next_page}/'
+        next_url = f'http://www.nepalstock.com/main/calculationoneeighty/index/{next_page}/'
         yield scrapy.Request(
             url=next_url,
             callback=self.parse
