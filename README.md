@@ -96,31 +96,43 @@ create table indices
     absolute_change       double,
     percentage_change     varchar(255),
 );
+
+create table market_depth
+(
+    id           bigint primary key auto_increment not null,
+    stock_symbol bigint unique                     not null,
+    stock_name   varchar(255) unique               not null
+);
 ```
 
 #### Scrap [Today's Share Price](http://www.nepalstock.com/todaysprice)
 ```python
-scrapy crawl nepse -a nepse_data=todaysprice -o todaysprice.csv
+scrapy crawl nepse -a nepse_data=todaysprice
 ```
 
 #### Scrap [Today's Floor Sheet](http://www.nepalstock.com/floorsheet)
 ```python
-scrapy crawl nepse -a nepse_data=floorsheet -o floorsheet.csv
+scrapy crawl nepse -a nepse_data=floorsheet
 ```
 
 #### Scrap [Datewise Indices](http://www.nepalstock.com/indices#)
 ```python
-scrapy crawl nepse -a nepse_data=indices -o indices.csv
+scrapy crawl nepse -a nepse_data=indices
 ```
 
 #### Scrap [120 Days Trading Average Price](http://www.nepalstock.com/calculation#)
 ```python
-scrapy crawl nepse -a nepse_data=calculation -o calculation.csv
+scrapy crawl nepse -a nepse_data=calculation
 ```
 
 #### Scrap [180 Days Trading Average Price](http://www.nepalstock.com/calculationoneeighty)
 ```python
-scrapy crawl nepse -a nepse_data=calculationoneeighty -o calculationoneeighty.csv
+scrapy crawl nepse -a nepse_data=calculationoneeighty
+```
+
+### Scrap [MarketDepth](http://www.nepalstock.com/marketdepth)
+```python
+scrapy crawl marketdepth 
 ```
 
 ## Running the project
